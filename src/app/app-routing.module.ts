@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ConvemComponent } from './convem/convem.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'convem', pathMatch: 'full' }, // Redireciona para ConvemComponent
-  { path: 'convem', component: ConvemComponent }, // Rota para ConvemComponent
+  { path: '', redirectTo: 'convem', pathMatch: 'full' },
+  { path: 'convem', component: ConvemComponent },
 ];
 
 @NgModule({
