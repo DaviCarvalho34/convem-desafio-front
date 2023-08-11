@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="card">
+    <h2>Você quer se juntar ao time da Convem?</h2>
+  <form [formGroup]="respostaForm">
+    <input formControlName="resposta" class="response-input" placeholder="Resposta">
+    <button class="confirm-button" (click)="enviarResposta()">Confirmar</button>
+  </form>
+  <p>{{ mensagem }}</p>
+  </div>
+</div>
