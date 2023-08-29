@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms'; // Certifique-se de que o FormGroup também está sendo importado
-import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { ApiService } from '../api.service';
 })
 export class ConvemComponent {
   respostaForm: FormGroup;
-  resposta: string = '';
   mensagem: string = '';
 
   constructor(private http: HttpClient, private fb: FormBuilder, private apiService: ApiService) {
@@ -19,12 +18,28 @@ export class ConvemComponent {
     });
   }
 
+  ngOnInit() {
+    // Coloque a chamada do método enviarResposta aqui se necessário
+  }
+
   enviarResposta() {
     const respostaFormatada = this.respostaForm.value.resposta.toLowerCase();
-    this.http.get(`http://localhost:3000/verificar-resposta/${respostaFormatada}`, { responseType: 'text' })
+    const apiUrl = 'http://localhost:3000/verificar-resposta';
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    const requestBody = {
+      resposta: respostaFormatada
+    };
+
+    this.http.post<any>(apiUrl, requestBody, httpOptions)
       .subscribe(
         response => {
-          if (response === 'sucesso') {
+          if (response.message === 'sucesso') {
             this.mensagem = 'Você está mais próximo de se juntar ao time!';
           } else {
             this.mensagem = 'Erro';
