@@ -18,10 +18,6 @@ export class ConvemComponent {
     });
   }
 
-  ngOnInit() {
-    // Coloque a chamada do método enviarResposta aqui se necessário
-  }
-
   enviarResposta() {
     const respostaFormatada = this.respostaForm.value.resposta.toLowerCase();
     const apiUrl = 'http://localhost:3000/verificar-resposta';
