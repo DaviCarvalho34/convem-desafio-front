@@ -9,17 +9,17 @@ import { ApiService } from '../api.service';
   styleUrls: ['./convem.component.css'],
 })
 export class ConvemComponent {
-  respostaForm: FormGroup;
-  mensagem: string = '';
+  responseForm: FormGroup;
+  message: string = '';
 
   constructor(private http: HttpClient, private fb: FormBuilder, private apiService: ApiService) {
-    this.respostaForm = this.fb.group({
-      resposta: ''
+    this.responseForm = this.fb.group({
+      response: ''
     });
   }
 
-  enviarResposta() {
-    const respostaFormatada = this.respostaForm.value.resposta.toLowerCase();
+  sendResponse() {
+    const formatedResponse = this.responseForm.value.response.toLowerCase();
     const apiUrl = 'http://localhost:3000/verificar-resposta';
 
     const httpOptions = {
@@ -29,21 +29,21 @@ export class ConvemComponent {
     };
 
     const requestBody = {
-      resposta: respostaFormatada
+      response: formatedResponse
     };
 
     this.http.post<any>(apiUrl, requestBody, httpOptions)
       .subscribe(
         response => {
           if (response.message === 'sucesso') {
-            this.mensagem = 'Você está mais próximo de se juntar ao time!';
+            this.message = 'Você está mais próximo de se juntar ao time!';
           } else {
-            this.mensagem = 'Erro';
+            this.message = 'Erro';
           }
         },
         error => {
           console.error(error);
-          this.mensagem = 'Erro ao se comunicar com o servidor';
+          this.message = 'Erro ao se comunicar com o servidor';
         }
       );
   }
